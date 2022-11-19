@@ -2,9 +2,11 @@ import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import styles from "./styles";
 
-const itens = ["T4 LIVRE - T4L", "TGP", "TESTOSTERONA LIVRE"];
+type IListItem = {
+  itens: string[];
+};
 
-const ListItem: React.FC = () => {
+const ListItem: React.FC<IListItem> = ({ itens }) => {
   const [selectItem, setSelectItem] = useState("");
   const [open, setOpen] = useState(false);
 

@@ -4,7 +4,7 @@ import { useAppSelector } from "../infrastructure/store/hooks/useAppSelector";
 
 const Routes: React.FC = () => {
   const { isLoggedIn } = useAppSelector((state) => state.Auth);
-  return isLoggedIn ? <AppRoutes /> : <AuthRoutes />;
+  return true ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;

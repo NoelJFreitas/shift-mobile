@@ -44,6 +44,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
   },
+  buttonWrapper: {
+    width: "100%",
+    alignItems: "center",
+  },
+  button: {
+    marginTop: 30,
+    width: "40%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#00CCFF",
+    borderRadius: 5,
+  },
 });
 
 export default styles;
