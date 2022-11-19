@@ -1,7 +1,8 @@
 import { createContext } from "react";
 
 interface IAuthContext {
-  handleSignIn: () => Promise<void>;
+  handleSignIn: (user: string, password: string) => void;
+  resetStoreState: () => void;
 }
 
 export const AuthContext = createContext<IAuthContext>(null!);

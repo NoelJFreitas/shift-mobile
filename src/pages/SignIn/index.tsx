@@ -1,8 +1,8 @@
+import { useState } from "react";
 import SinginInput from "../../components/SinginInput";
-import LoadingIndicator from "../../components/loadingIndicator";
 import { useAuthContext } from "../../infrastructure/contexts/Auth/AuthProvider";
 import { useAppSelector } from "../../infrastructure/store/hooks/useAppSelector";
-import styles from "./styles";
+import LoadingIndicator from "../../components/loadingIndicator";
 import {
   SafeAreaView,
   View,
@@ -10,19 +10,35 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import styles from "./styles";
 
 const shiftLogo = require("../../../assets/images/shitf.png");
 
-const Login: React.FC = () => {
+const SignIn: React.FC = () => {
   const { handleSignIn } = useAuthContext();
   const { isLoading } = useAppSelector((state) => state.Auth);
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={shiftLogo} style={styles.image} />
       <View style={styles.wrapperInput}>
-        <SinginInput title="Usuário" />
-        <SinginInput title="Senha" password />
-        <TouchableOpacity style={styles.button} onPress={() => handleSignIn()}>
+        <SinginInput
+          title="Usuário"
+          value={user}
+          onChengeText={(t) => setUser(t)}
+        />
+        <SinginInput
+          title="Senha"
+          password
+          value={password}
+          onChengeText={(t) => setPassword(t)}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleSignIn(user, password)}
+        >
           <Text style={styles.textButton}>Logar</Text>
         </TouchableOpacity>
       </View>
@@ -31,4 +47,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default SignIn;

@@ -1,7 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import { Alert } from "react-native";
 import { useAppDispatch } from "../../store/hooks/useAppDispatch";
-import { isLoggingIn, isAuthenticating } from "../../store/reducers/authSlice";
+import {
+  isLoggingIn,
+  isAuthenticating,
+  authenticationError,
+  resetState,
+} from "../../store/reducers/authSlice";
 
 interface IChildren {
   children: React.ReactNode;
@@ -10,25 +16,31 @@ interface IChildren {
 export const AuthProvider: React.FC<IChildren> = ({ children }) => {
   const dispath = useAppDispatch();
 
-  async function handleSignIn() {
-    dispath(isAuthenticating());
-    setTimeout(async () => {
-      const { data, status } = await new Promise<{
-        data: string;
-        status: number;
-      }>((resolve, reject) =>
-        resolve({ data: "sa212asd2as1das", status: 200 })
-      );
-      if (status === 200) {
-        dispath(isLoggingIn(data));
-      }
-    }, 3000);
+  function handleSignIn(user: string, password: string) {
+    if (user === "" && password === "") {
+      Alert.alert("Preencha os campos", "os campos não podem estar em branco");
+    } else {
+      dispath(isAuthenticating());
+      setTimeout(() => {
+        if (user === "shift" && password === "shift") {
+          dispath(isLoggingIn());
+        } else {
+          Alert.alert("Erro", "Usuário ou senha incoretos");
+          dispath(resetState());
+        }
+      }, 2000);
+    }
+  }
+
+  function resetStoreState() {
+    dispath(resetState());
   }
 
   return (
     <AuthContext.Provider
       value={{
         handleSignIn,
+        resetStoreState,
       }}
     >
       {children}

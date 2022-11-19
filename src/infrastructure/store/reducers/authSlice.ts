@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  token: "",
   isLoggedIn: false,
   isLoading: false,
   isError: false,
@@ -12,8 +11,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    isLoggingIn(state, action: PayloadAction<string>) {
-      state.token = action.payload;
+    isLoggingIn(state) {
       state.isLoading = false;
       state.isLoggedIn = true;
     },
@@ -26,7 +24,6 @@ export const authSlice = createSlice({
       state.errorMessage = action.payload;
     },
     resetState(state) {
-      state.token = "";
       state.isLoggedIn = false;
       state.isLoading = false;
       state.isError = false;
